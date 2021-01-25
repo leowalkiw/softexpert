@@ -1,0 +1,52 @@
+create table clientes (
+id serial,
+nome varchar(200),
+email varchar(200),
+telefone varchar(20),
+
+constraint pk_idcliente primary key(id)
+
+)
+_______________________________________
+
+create table categorias (
+id serial,
+nome varchar(200),
+imposto varchar(10),
+
+constraint pk_idcategoria primary key(id)
+
+)
+_________________________________________
+
+create table produtos (
+id serial,
+descricao varchar(200),
+id_categoria int,
+valor_venda decimal(10,2),
+
+constraint pk_idproduto primary key(id),
+constraint fk_categoria foreign key(id_categoria) references categorias (id)
+)
+__________________________________________________
+
+create table vendas (
+id serial,
+data_venda date,
+id_cliente int,
+
+constraint pk_idvenda primary key (id),
+constraint fk_idcliente foreign key(id_cliente) references clientes (id)
+)
+__________________________________________________
+
+create table vendas_itens (
+id serial,
+id_venda int,
+id_produto int,
+quantidade int,
+
+constraint pk_id_venda_item primary key (id),
+constraint fk_id_venda foreign key (id_venda) references vendas(id),
+constraint fk_id_produto foreign key (id_produto) references produtos(id)
+)
